@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter For You</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@300;400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #f06292 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .floating-heart { position: absolute; font-size: 20px; opacity: 0; animation: floatUp linear infinite; }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+    10% { opacity: 0.15; } 90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) rotate(360deg) scale(1); opacity: 0; }
+  }
+
+  .ground {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 60px;
+    background: linear-gradient(to top, #5d4037, #6d4c41, transparent); z-index: 2;
+  }
+
+  /* ===== ANIMAL PARADE ===== */
+  .parade {
+    position: fixed; bottom: 30px; z-index: 10;
+    display: flex; align-items: flex-end; gap: 20px;
+    animation: paradeIn 3.5s ease-out forwards;
+    left: -500px;
+  }
+  @keyframes paradeIn {
+    0% { left: -500px; }
+    55% { left: calc(50% - 160px); }
+    65% { left: calc(50% - 160px); transform: translateY(0); }
+    75% { left: calc(50% - 160px); transform: translateY(-8px); }
+    85% { left: calc(50% - 160px); transform: translateY(0); }
+    100% { left: calc(50% - 160px); transform: translateY(0); }
+  }
+  .parade.walk-away { animation: paradeOut 2.5s ease-in forwards; }
+  @keyframes paradeOut {
+    0% { left: calc(50% - 160px); }
+    100% { left: calc(100% + 500px); }
+  }
+
+  /* Shared cat structure */
+  .pet { position: relative; flex-shrink: 0; }
+
+  /* ===== TABBY CAT (dark brown/black stripes, white chest, green eyes, pink nose) ===== */
+  .tabby { width: 110px; height: 95px; }
+  .tabby .body { width: 65px; height: 42px; background: #5c4a3a; border-radius: 32px 32px 18px 18px; position: absolute; bottom: 14px; left: 22px; }
+  .tabby .body::before { content: ''; position: absolute; top: 5px; left: 8px; right: 8px; height: 3px; background: repeating-linear-gradient(90deg, #2c1e14 0px, #2c1e14 6px, transparent 6px, transparent 10px); border-radius: 2px; }
+  .tabby .body::after { content: ''; position: absolute; top: 14px; left: 6px; right: 6px; height: 3px; background: repeating-linear-gradient(90deg, #2c1e14 0px, #2c1e14 8px, transparent 8px, transparent 12px); border-radius: 2px; }
+  .tabby .chest { width: 28px; height: 20px; background: #f5f0eb; border-radius: 50%; position: absolute; bottom: 14px; left: 32px; }
+  .tabby .head { width: 40px; height: 36px; background: #5c4a3a; border-radius: 50% 50% 40% 40%; position: absolute; bottom: 42px; left: 20px; }
+  .tabby .head-stripe { position: absolute; bottom: 65px; left: 35px; width: 6px; height: 12px; background: #2c1e14; border-radius: 3px; transform: rotate(-3deg); }
+  .tabby .muzzle { width: 22px; height: 12px; background: #f5f0eb; border-radius: 50%; position: absolute; bottom: 42px; left: 29px; }
+  .tabby .ear-l, .tabby .ear-r { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 15px solid #5c4a3a; position: absolute; }
+  .tabby .ear-l { bottom: 74px; left: 20px; transform: rotate(-10deg); }
+  .tabby .ear-r { bottom: 74px; left: 43px; transform: rotate(10deg); }
+  .tabby .ear-inner-l, .tabby .ear-inner-r { width: 0; height: 0; border-left: 3px solid transparent; border-right: 3px solid transparent; border-bottom: 8px solid #e8b4b8; position: absolute; }
+  .tabby .ear-inner-l { bottom: 74px; left: 24px; transform: rotate(-10deg); }
+  .tabby .ear-inner-r { bottom: 74px; left: 47px; transform: rotate(10deg); }
+  .tabby .eyes { position: absolute; bottom: 53px; left: 27px; display: flex; gap: 9px; }
+  .tabby .eye { width: 9px; height: 10px; background: #7cb342; border-radius: 50%; position: relative; animation: blink 4s infinite; }
+  .tabby .eye::after { content: ''; width: 3px; height: 6px; background: #111; border-radius: 50%; position: absolute; top: 2px; left: 3px; }
+  .tabby .nose { width: 6px; height: 4px; background: #e8a0a0; border-radius: 50%; position: absolute; bottom: 48px; left: 37px; }
+  .tabby .mouth-l, .tabby .mouth-r { width: 5px; height: 3px; border-bottom: 1.5px solid #8b7b6b; border-radius: 0 0 50% 50%; position: absolute; bottom: 45px; }
+  .tabby .mouth-l { left: 34px; } .tabby .mouth-r { left: 41px; }
+  .tabby .whisker { position: absolute; width: 18px; height: 1px; background: #c0b0a0; }
+  .tabby .wh-l1 { bottom: 50px; left: 5px; transform: rotate(-5deg); }
+  .tabby .wh-l2 { bottom: 47px; left: 3px; transform: rotate(-12deg); }
+  .tabby .wh-r1 { bottom: 50px; left: 52px; transform: rotate(5deg); }
+  .tabby .wh-r2 { bottom: 47px; left: 54px; transform: rotate(12deg); }
+  .tabby .tail { width: 35px; height: 28px; border-top: 4px solid #5c4a3a; border-right: 4px solid #5c4a3a; border-radius: 0 18px 0 0; position: absolute; bottom: 22px; left: 75px; animation: tailWag 1.5s ease-in-out infinite; transform-origin: left bottom; }
+  .tabby .leg { width: 7px; height: 14px; background: #5c4a3a; border-radius: 0 0 3px 3px; position: absolute; bottom: 0; }
+  .tabby .leg::after { content: ''; width: 9px; height: 4px; background: #f5f0eb; border-radius: 50%; position: absolute; bottom: -1px; left: -1px; }
+  .tabby .leg-fl { left: 28px; } .tabby .leg-fr { left: 40px; }
+  .tabby .leg-bl { left: 62px; } .tabby .leg-br { left: 73px; }
+
+  /* Envelope carried by tabby */
+  .tabby .envelope-carry { position: absolute; bottom: 33px; left: 44px; width: 26px; height: 18px; background: #fff5f5; border: 1.5px solid #e91e63; border-radius: 2px; transform: rotate(-8deg); z-index: 1; }
+  .tabby .envelope-carry::before { content: ''; position: absolute; top: -1px; left: -1px; width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent; border-top: 9px solid #e91e63; }
+  .tabby .envelope-carry .seal { position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%); color: #e91e63; font-size: 7px; }
+
+  /* ===== GREY CAT (grey body, white muzzle/chest, green eyes) ===== */
+  .grey-cat { width: 100px; height: 90px; }
+  .grey-cat .body { width: 60px; height: 40px; background: #8e99a4; border-radius: 30px 30px 16px 16px; position: absolute; bottom: 13px; left: 20px; }
+  .grey-cat .chest { width: 26px; height: 18px; background: #f0ede8; border-radius: 50%; position: absolute; bottom: 12px; left: 30px; }
+  .grey-cat .head { width: 38px; height: 34px; background: #8e99a4; border-radius: 50% 50% 40% 40%; position: absolute; bottom: 40px; left: 18px; }
+  .grey-cat .muzzle { width: 18px; height: 11px; background: #f0ede8; border-radius: 50%; position: absolute; bottom: 39px; left: 28px; }
+  .grey-cat .ear-l, .grey-cat .ear-r { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 14px solid #8e99a4; position: absolute; }
+  .grey-cat .ear-l { bottom: 70px; left: 18px; transform: rotate(-10deg); }
+  .grey-cat .ear-r { bottom: 70px; left: 40px; transform: rotate(10deg); }
+  .grey-cat .ear-inner-l, .grey-cat .ear-inner-r { width: 0; height: 0; border-left: 3px solid transparent; border-right: 3px solid transparent; border-bottom: 7px solid #e8b4b8; position: absolute; }
+  .grey-cat .ear-inner-l { bottom: 70px; left: 22px; transform: rotate(-10deg); }
+  .grey-cat .ear-inner-r { bottom: 70px; left: 44px; transform: rotate(10deg); }
+  .grey-cat .eyes { position: absolute; bottom: 50px; left: 26px; display: flex; gap: 8px; }
+  .grey-cat .eye { width: 8px; height: 9px; background: #7cb342; border-radius: 50%; position: relative; animation: blink 4.5s infinite; }
+  .grey-cat .eye::after { content: ''; width: 3px; height: 5px; background: #111; border-radius: 50%; position: absolute; top: 2px; left: 2.5px; }
+  .grey-cat .nose { width: 5px; height: 3px; background: #b0a0a0; border-radius: 50%; position: absolute; bottom: 44px; left: 35px; }
+  .grey-cat .mouth-l, .grey-cat .mouth-r { width: 5px; height: 3px; border-bottom: 1.5px solid #7a8a94; border-radius: 0 0 50% 50%; position: absolute; bottom: 42px; }
+  .grey-cat .mouth-l { left: 32px; } .grey-cat .mouth-r { left: 38px; }
+  .grey-cat .whisker { position: absolute; width: 18px; height: 1px; background: #c8c8c8; }
+  .grey-cat .wh-l1 { bottom: 46px; left: 4px; transform: rotate(-5deg); }
+  .grey-cat .wh-l2 { bottom: 43px; left: 2px; transform: rotate(-12deg); }
+  .grey-cat .wh-r1 { bottom: 46px; left: 48px; transform: rotate(5deg); }
+  .grey-cat .wh-r2 { bottom: 43px; left: 50px; transform: rotate(12deg); }
+  .grey-cat .tail { width: 32px; height: 25px; border-top: 4px solid #8e99a4; border-right: 4px solid #8e99a4; border-radius: 0 16px 0 0; position: absolute; bottom: 20px; left: 68px; animation: tailWag 1.8s ease-in-out infinite; transform-origin: left bottom; }
+  .grey-cat .leg { width: 7px; height: 13px; background: #8e99a4; border-radius: 0 0 3px 3px; position: absolute; bottom: 0; }
+  .grey-cat .leg::after { content: ''; width: 9px; height: 4px; background: #f0ede8; border-radius: 50%; position: absolute; bottom: -1px; left: -1px; }
+  .grey-cat .leg-fl { left: 26px; } .grey-cat .leg-fr { left: 37px; }
+  .grey-cat .leg-bl { left: 56px; } .grey-cat .leg-br { left: 66px; }
+
+  /* ===== GUINEA PIG (white/cream, light tan patches, pink eyes, floppy ears) ===== */
+  .guinea-pig { width: 70px; height: 50px; }
+  .guinea-pig .body { width: 50px; height: 28px; background: #f5efe6; border-radius: 50% 45% 40% 45%; position: absolute; bottom: 5px; left: 10px; }
+  .guinea-pig .body::after { content: ''; position: absolute; top: 4px; right: 3px; width: 18px; height: 14px; background: #e8d8c4; border-radius: 50%; opacity: 0.6; }
+  .guinea-pig .head { width: 28px; height: 22px; background: #f5efe6; border-radius: 55% 50% 45% 50%; position: absolute; bottom: 18px; left: 5px; }
+  .guinea-pig .head::after { content: ''; position: absolute; top: 2px; left: 3px; width: 12px; height: 10px; background: #e8d8c4; border-radius: 50%; opacity: 0.5; }
+  .guinea-pig .ear-l, .guinea-pig .ear-r { width: 10px; height: 7px; background: #e0c8b8; border-radius: 50% 50% 30% 30%; position: absolute; }
+  .guinea-pig .ear-l { bottom: 36px; left: 4px; transform: rotate(-15deg); }
+  .guinea-pig .ear-r { bottom: 36px; left: 20px; transform: rotate(10deg); }
+  .guinea-pig .eye { width: 5px; height: 5px; background: #d4788a; border-radius: 50%; position: absolute; animation: blink 5s infinite; }
+  .guinea-pig .eye-l { bottom: 28px; left: 10px; }
+  .guinea-pig .eye-r { bottom: 28px; left: 20px; }
+  .guinea-pig .eye::after { content: ''; width: 1.5px; height: 1.5px; background: white; border-radius: 50%; position: absolute; top: 1px; left: 1.5px; }
+  .guinea-pig .nose-gp { width: 4px; height: 3px; background: #e0a8a8; border-radius: 50%; position: absolute; bottom: 24px; left: 6px; }
+  .guinea-pig .foot { width: 8px; height: 4px; background: #e0c8b8; border-radius: 50%; position: absolute; bottom: 1px; }
+  .guinea-pig .foot-fl { left: 14px; } .guinea-pig .foot-fr { left: 24px; }
+  .guinea-pig .foot-bl { left: 38px; } .guinea-pig .foot-br { left: 48px; }
+  .guinea-pig .fur-tuft { position: absolute; top: -2px; left: 20px; width: 15px; height: 6px; background: #f0e6d8; border-radius: 50% 50% 0 0; }
+  /* Guinea pig waddle */
+  .guinea-pig { animation: gpWaddle 0.6s ease-in-out infinite; }
+  @keyframes gpWaddle {
+    0%, 100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+  }
+
+  @keyframes tailWag {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(10deg); }
+  }
+  @keyframes blink {
+    0%, 95%, 100% { transform: scaleY(1); }
+    97% { transform: scaleY(0.1); }
+  }
+
+  /* ===== ENVELOPE & LETTER (same as before) ===== */
+  .letter-drop {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 20; opacity: 0; pointer-events: none;
+  }
+  .letter-drop.active { animation: letterAppear 1s ease-out forwards; pointer-events: auto; }
+  @keyframes letterAppear {
+    0% { opacity: 0; transform: translate(-50%, -80%) scale(0.3) rotate(-15deg); }
+    60% { opacity: 1; transform: translate(-50%, -45%) scale(1.05) rotate(2deg); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  }
+
+  .envelope-wrapper { position: relative; cursor: pointer; }
+  .envelope { width: 320px; height: 220px; position: relative; }
+  .envelope-back { width: 100%; height: 100%; background: linear-gradient(145deg, #fff5f5, #fce4ec); border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 2px solid #f48fb1; }
+  .envelope-flap { position: absolute; top: -2px; left: -2px; width: 0; height: 0; border-left: 162px solid transparent; border-right: 162px solid transparent; border-top: 110px solid #f8bbd0; border-radius: 8px 8px 0 0; z-index: 2; transform-origin: top center; transition: transform 0.8s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+  .envelope-flap::after { content: ''; position: absolute; top: -112px; left: -164px; width: 324px; height: 112px; border-radius: 8px 8px 0 0; border-top: 2px solid #f48fb1; border-left: 2px solid #f48fb1; border-right: 2px solid #f48fb1; }
+  .heart-wax { position: absolute; top: 70px; left: 50%; transform: translateX(-50%); font-size: 32px; z-index: 3; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); transition: opacity 0.3s; animation: heartPulse 1.5s ease-in-out infinite; }
+  @keyframes heartPulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.1); } }
+  .tap-hint { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); font-family: 'Caveat', cursive; font-size: 18px; color: #ad1457; animation: fadeInOut 2s ease-in-out infinite; white-space: nowrap; }
+  @keyframes fadeInOut { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  /* Letter view */
+  .letter-container {
+    position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-start; justify-content: center;
+    background: rgba(252, 228, 236, 0.95); opacity: 0; pointer-events: none;
+    transition: opacity 0.8s ease; overflow-y: auto; padding: 40px 20px;
+  }
+  .letter-container.visible { opacity: 1; pointer-events: auto; }
+
+  .letter-paper {
+    width: 100%; max-width: 580px; background: linear-gradient(to bottom, #fffdf7, #fff9f0);
+    border-radius: 4px; padding: 50px 45px 40px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.12), inset 0 0 80px rgba(255,240,220,0.3);
+    position: relative; transform: scale(0.9); transition: transform 0.6s ease; margin: 20px 0;
+  }
+  .letter-container.visible .letter-paper { transform: scale(1); }
+
+  .letter-paper::before { content: ''; position: absolute; top: 20px; left: 45px; right: 45px; height: 2px; background: linear-gradient(90deg, transparent, #f48fb1, transparent); }
+  .letter-paper::after { content: ''; position: absolute; bottom: 20px; left: 45px; right: 45px; height: 2px; background: linear-gradient(90deg, transparent, #f48fb1, transparent); }
+
+  .letter-text { font-family: 'Caveat', cursive; font-size: 20px; line-height: 1.7; color: #3e2723; white-space: pre-wrap; }
+  .letter-text .greeting { font-size: 26px; font-weight: 600; color: #c2185b; display: block; margin-bottom: 16px; }
+  .letter-text .sign-off { display: block; margin-top: 24px; font-size: 24px; font-weight: 600; color: #c2185b; }
+  .letter-decoration { text-align: center; margin-top: 16px; font-size: 14px; color: #f48fb1; letter-spacing: 6px; }
+
+  .save-pdf-btn { position: absolute; bottom: 28px; right: 20px; background: none; border: 1px solid #e0b0b0; color: #c2185b; font-family: 'Inter', sans-serif; font-size: 11px; padding: 4px 10px; border-radius: 3px; cursor: pointer; opacity: 0.5; transition: opacity 0.3s, background 0.3s; }
+  .save-pdf-btn:hover { opacity: 1; background: #fce4ec; }
+
+  .close-letter { position: fixed; top: 20px; right: 20px; z-index: 31; background: none; border: none; font-size: 28px; color: #ad1457; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s; font-family: 'Inter', sans-serif; }
+  .letter-container.visible ~ .close-letter { opacity: 0.6; pointer-events: auto; }
+  .close-letter:hover { opacity: 1; }
+
+  @media (max-width: 480px) {
+    .envelope { width: 260px; height: 180px; }
+    .envelope-flap { border-left: 132px solid transparent; border-right: 132px solid transparent; border-top: 90px solid #f8bbd0; }
+    .envelope-flap::after { top: -92px; left: -134px; width: 264px; height: 92px; }
+    .heart-wax { top: 55px; font-size: 26px; }
+    .letter-paper { padding: 40px 28px 35px; }
+    .letter-text { font-size: 18px; }
+    .letter-text .greeting { font-size: 22px; }
+    .letter-text .sign-off { font-size: 20px; }
+    .parade { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsBg"></div>
+<div class="ground"></div>
+
+<!-- Animal parade -->
+<div class="parade" id="parade">
+
+  <!-- Tabby cat (carries the letter) -->
+  <div class="pet tabby">
+    <div class="ear-l"></div><div class="ear-r"></div>
+    <div class="ear-inner-l"></div><div class="ear-inner-r"></div>
+    <div class="head"></div><div class="head-stripe"></div>
+    <div class="muzzle"></div>
+    <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+    <div class="nose"></div>
+    <div class="mouth-l"></div><div class="mouth-r"></div>
+    <div class="whisker wh-l1"></div><div class="whisker wh-l2"></div>
+    <div class="whisker wh-r1"></div><div class="whisker wh-r2"></div>
+    <div class="body"></div><div class="chest"></div>
+    <div class="tail"></div>
+    <div class="leg leg-fl"></div><div class="leg leg-fr"></div>
+    <div class="leg leg-bl"></div><div class="leg leg-br"></div>
+    <div class="envelope-carry"><span class="seal">&hearts;</span></div>
+  </div>
+
+  <!-- Grey & white cat -->
+  <div class="pet grey-cat">
+    <div class="ear-l"></div><div class="ear-r"></div>
+    <div class="ear-inner-l"></div><div class="ear-inner-r"></div>
+    <div class="head"></div>
+    <div class="muzzle"></div>
+    <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+    <div class="nose"></div>
+    <div class="mouth-l"></div><div class="mouth-r"></div>
+    <div class="whisker wh-l1"></div><div class="whisker wh-l2"></div>
+    <div class="whisker wh-r1"></div><div class="whisker wh-r2"></div>
+    <div class="body"></div><div class="chest"></div>
+    <div class="tail"></div>
+    <div class="leg leg-fl"></div><div class="leg leg-fr"></div>
+    <div class="leg leg-bl"></div><div class="leg leg-br"></div>
+  </div>
+
+  <!-- Guinea pig -->
+  <div class="pet guinea-pig">
+    <div class="body"></div>
+    <div class="head"></div>
+    <div class="fur-tuft"></div>
+    <div class="ear-l"></div><div class="ear-r"></div>
+    <div class="eye eye-l"></div><div class="eye eye-r"></div>
+    <div class="nose-gp"></div>
+    <div class="foot foot-fl"></div><div class="foot foot-fr"></div>
+    <div class="foot foot-bl"></div><div class="foot foot-br"></div>
+  </div>
+
+</div>
+
+<!-- Dropped envelope -->
+<div class="letter-drop" id="letterDrop">
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope">
+      <div class="envelope-back"></div>
+      <div class="envelope-flap" id="envelopeFlap"></div>
+      <div class="heart-wax" id="heartWax">&hearts;</div>
+    </div>
+    <div class="tap-hint">tap to open</div>
+  </div>
+</div>
+
+<!-- Full letter view -->
+<div class="letter-container" id="letterContainer">
+  <div class="letter-paper" id="letterPaper">
+    <div class="letter-text">
+      <span class="greeting">Hi baby,</span>I know this may seem a little random, but I know my answer about how I'm feeling didn't really represent how I felt deep down properly, so I wanted to write you something to reassure you.
+
+You truly are the love of my life. I want to share every part of it with you, and I am so excited that we get to do that (and have been doing that). I'm excited to be able to see your face everyday, hear about your work over lazy meals, hear your laugh over stupid jokes, get lost in London with you as we try figure out the tubes, get into bed and see your bonnet (I've missed the bonnet a lot), be around your threatening feeties, hear you belt songs and so much more.
+
+Living together feels like the first big step towards building our future, and I am all in. I'm so proud of us and the work we've done to grow together over the past 3 years. I know there's always more work to come, but because of what we've already built, I feel confident in our ability to figure life out together.
+
+I'm honestly still absorbing that it's actually happening, not in a bad way, but in a "it's something I know will be amazing so the fact it's actually happening is crazy" type of way. And I want you to know, there is no doubt in my mind that I want to marry you and spend forever with you. I see you as my partner in crime for life and I'm bouncing up and down with joy for what's to come.
+
+I promise you that we are in these things together, not in a way that takes away autonomy or independence, but as equals supporting each other through all our adventures. We'll find our balance when we start living together, and I also promise I won't overspend hehe.
+      <span class="sign-off">Love you loads,
+Laura &hearts;</span>
+    </div>
+    <div class="letter-decoration">&hearts; &hearts; &hearts;</div>
+    <button class="save-pdf-btn" onclick="savePDF()">Save as PDF</button>
+  </div>
+</div>
+
+<button class="close-letter" id="closeLetter">&times;</button>
+
+<script>
+  // Floating hearts
+  const heartsBg = document.getElementById('heartsBg');
+  const heartChars = ['\u2764', '\u2665', '\u2661', '\u2763'];
+  for (let i = 0; i < 20; i++) {
+    const h = document.createElement('div');
+    h.className = 'floating-heart';
+    h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+    h.style.left = Math.random() * 100 + '%';
+    h.style.fontSize = (12 + Math.random() * 16) + 'px';
+    h.style.animationDuration = (8 + Math.random() * 12) + 's';
+    h.style.animationDelay = (Math.random() * 10) + 's';
+    h.style.color = ['#e91e63', '#f06292', '#f48fb1', '#ad1457'][Math.floor(Math.random() * 4)];
+    heartsBg.appendChild(h);
+  }
+
+  const parade = document.getElementById('parade');
+  const letterDrop = document.getElementById('letterDrop');
+  const envelopeWrapper = document.getElementById('envelopeWrapper');
+  const letterContainer = document.getElementById('letterContainer');
+  const closeLetter = document.getElementById('closeLetter');
+  const heartWax = document.getElementById('heartWax');
+
+  // After parade walks in, drop envelope and parade walks away
+  setTimeout(() => {
+    letterDrop.classList.add('active');
+    setTimeout(() => {
+      parade.classList.add('walk-away');
+    }, 600);
+  }, 3700);
+
+  // Click envelope to open letter
+  envelopeWrapper.addEventListener('click', () => {
+    const flap = document.getElementById('envelopeFlap');
+    flap.style.transform = 'rotateX(180deg)';
+    heartWax.style.opacity = '0';
+    setTimeout(() => {
+      letterDrop.style.transition = 'opacity 0.5s';
+      letterDrop.style.opacity = '0';
+      letterDrop.style.pointerEvents = 'none';
+      setTimeout(() => {
+        letterContainer.scrollTop = 0;
+        letterContainer.classList.add('visible');
+        setTimeout(() => { letterContainer.scrollTop = 0; }, 50);
+      }, 300);
+    }, 600);
+  });
+
+  // Close letter
+  closeLetter.addEventListener('click', () => {
+    letterContainer.classList.remove('visible');
+    setTimeout(() => {
+      letterDrop.style.opacity = '1';
+      letterDrop.style.pointerEvents = 'auto';
+      const flap = document.getElementById('envelopeFlap');
+      flap.style.transform = 'rotateX(0deg)';
+      heartWax.style.opacity = '1';
+    }, 500);
+  });
+
+  function savePDF() { window.print(); }
+</script>
+
+<style>
+  @media print {
+    body { background: white !important; display: block !important; }
+    .hearts-bg, .ground, .parade, .letter-drop,
+    .close-letter, .save-pdf-btn, .letter-decoration { display: none !important; }
+    .letter-container { position: static !important; opacity: 1 !important; pointer-events: auto !important; background: white !important; padding: 0 !important; }
+    .letter-paper { transform: none !important; box-shadow: none !important; max-width: 100% !important; padding: 40px !important; }
+    .letter-text { color: #333 !important; font-size: 18px !important; }
+  }
+</style>
+
+</body>
+</html>
