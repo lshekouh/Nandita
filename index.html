@@ -56,16 +56,16 @@
   /* Shared cat structure */
   .pet { position: relative; flex-shrink: 0; }
 
-  /* ===== TABBY CAT (dark brown/black stripes, white chest, green eyes, pink nose) ===== */
+  /* ===== TABBY CAT (black with dark tabby stripes, white chest, green eyes, pink nose) ===== */
   .tabby { width: 110px; height: 95px; }
-  .tabby .body { width: 65px; height: 42px; background: #5c4a3a; border-radius: 32px 32px 18px 18px; position: absolute; bottom: 14px; left: 22px; }
-  .tabby .body::before { content: ''; position: absolute; top: 5px; left: 8px; right: 8px; height: 3px; background: repeating-linear-gradient(90deg, #2c1e14 0px, #2c1e14 6px, transparent 6px, transparent 10px); border-radius: 2px; }
-  .tabby .body::after { content: ''; position: absolute; top: 14px; left: 6px; right: 6px; height: 3px; background: repeating-linear-gradient(90deg, #2c1e14 0px, #2c1e14 8px, transparent 8px, transparent 12px); border-radius: 2px; }
+  .tabby .body { width: 65px; height: 42px; background: #2a2a2a; border-radius: 32px 32px 18px 18px; position: absolute; bottom: 14px; left: 22px; }
+  .tabby .body::before { content: ''; position: absolute; top: 5px; left: 8px; right: 8px; height: 3px; background: repeating-linear-gradient(90deg, #3d3528 0px, #3d3528 6px, transparent 6px, transparent 10px); border-radius: 2px; }
+  .tabby .body::after { content: ''; position: absolute; top: 14px; left: 6px; right: 6px; height: 3px; background: repeating-linear-gradient(90deg, #3d3528 0px, #3d3528 8px, transparent 8px, transparent 12px); border-radius: 2px; }
   .tabby .chest { width: 28px; height: 20px; background: #f5f0eb; border-radius: 50%; position: absolute; bottom: 14px; left: 32px; }
-  .tabby .head { width: 40px; height: 36px; background: #5c4a3a; border-radius: 50% 50% 40% 40%; position: absolute; bottom: 42px; left: 20px; }
-  .tabby .head-stripe { position: absolute; bottom: 65px; left: 35px; width: 6px; height: 12px; background: #2c1e14; border-radius: 3px; transform: rotate(-3deg); }
+  .tabby .head { width: 40px; height: 36px; background: #2a2a2a; border-radius: 50% 50% 40% 40%; position: absolute; bottom: 42px; left: 20px; }
+  .tabby .head-stripe { position: absolute; bottom: 65px; left: 35px; width: 6px; height: 12px; background: #3d3528; border-radius: 3px; transform: rotate(-3deg); }
   .tabby .muzzle { width: 22px; height: 12px; background: #f5f0eb; border-radius: 50%; position: absolute; bottom: 42px; left: 29px; }
-  .tabby .ear-l, .tabby .ear-r { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 15px solid #5c4a3a; position: absolute; }
+  .tabby .ear-l, .tabby .ear-r { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 15px solid #2a2a2a; position: absolute; }
   .tabby .ear-l { bottom: 74px; left: 20px; transform: rotate(-10deg); }
   .tabby .ear-r { bottom: 74px; left: 43px; transform: rotate(10deg); }
   .tabby .ear-inner-l, .tabby .ear-inner-r { width: 0; height: 0; border-left: 3px solid transparent; border-right: 3px solid transparent; border-bottom: 8px solid #e8b4b8; position: absolute; }
@@ -75,15 +75,15 @@
   .tabby .eye { width: 9px; height: 10px; background: #7cb342; border-radius: 50%; position: relative; animation: blink 4s infinite; }
   .tabby .eye::after { content: ''; width: 3px; height: 6px; background: #111; border-radius: 50%; position: absolute; top: 2px; left: 3px; }
   .tabby .nose { width: 6px; height: 4px; background: #e8a0a0; border-radius: 50%; position: absolute; bottom: 48px; left: 37px; }
-  .tabby .mouth-l, .tabby .mouth-r { width: 5px; height: 3px; border-bottom: 1.5px solid #8b7b6b; border-radius: 0 0 50% 50%; position: absolute; bottom: 45px; }
+  .tabby .mouth-l, .tabby .mouth-r { width: 5px; height: 3px; border-bottom: 1.5px solid #555; border-radius: 0 0 50% 50%; position: absolute; bottom: 45px; }
   .tabby .mouth-l { left: 34px; } .tabby .mouth-r { left: 41px; }
-  .tabby .whisker { position: absolute; width: 18px; height: 1px; background: #c0b0a0; }
+  .tabby .whisker { position: absolute; width: 18px; height: 1px; background: #bbb; }
   .tabby .wh-l1 { bottom: 50px; left: 5px; transform: rotate(-5deg); }
   .tabby .wh-l2 { bottom: 47px; left: 3px; transform: rotate(-12deg); }
   .tabby .wh-r1 { bottom: 50px; left: 52px; transform: rotate(5deg); }
   .tabby .wh-r2 { bottom: 47px; left: 54px; transform: rotate(12deg); }
-  .tabby .tail { width: 35px; height: 28px; border-top: 4px solid #5c4a3a; border-right: 4px solid #5c4a3a; border-radius: 0 18px 0 0; position: absolute; bottom: 22px; left: 75px; animation: tailWag 1.5s ease-in-out infinite; transform-origin: left bottom; }
-  .tabby .leg { width: 7px; height: 14px; background: #5c4a3a; border-radius: 0 0 3px 3px; position: absolute; bottom: 0; }
+  .tabby .tail { width: 35px; height: 28px; border-top: 4px solid #2a2a2a; border-right: 4px solid #2a2a2a; border-radius: 0 18px 0 0; position: absolute; bottom: 22px; left: 75px; animation: tailWag 1.5s ease-in-out infinite; transform-origin: left bottom; }
+  .tabby .leg { width: 7px; height: 14px; background: #2a2a2a; border-radius: 0 0 3px 3px; position: absolute; bottom: 0; }
   .tabby .leg::after { content: ''; width: 9px; height: 4px; background: #f5f0eb; border-radius: 50%; position: absolute; bottom: -1px; left: -1px; }
   .tabby .leg-fl { left: 28px; } .tabby .leg-fr { left: 40px; }
   .tabby .leg-bl { left: 62px; } .tabby .leg-br { left: 73px; }
@@ -297,13 +297,13 @@
     <div class="letter-text">
       <span class="greeting">Hi baby,</span>I know this may seem a little random, but I know my answer about how I'm feeling didn't really represent how I felt deep down properly, so I wanted to write you something to reassure you.
 
-You truly are the love of my life. I want to share every part of it with you, and I am so excited that we get to do that (and have been doing that). I'm excited to be able to see your face everyday, hear about your work over lazy meals, hear your laugh over stupid jokes, get lost in London with you as we try figure out the tubes, get into bed and see your bonnet (I've missed the bonnet a lot), be around your threatening feeties, hear you belt songs and so much more.
+You truly are the love of my life. I want to share every part of it with you, and I am so excited and lucky that we get to do that (and have been doing that). I'm excited to be able to see your face everyday, hear about your work over lazy meals, hear your laugh over stupid jokes, get lost in London with you as we try figure out the tubes, get into bed and see your bonnet (I've missed the bonnet a lot), be around your threatening feeties, hear you belt songs and so much more. Really just your presence in everyday life is going to be more than I could ever ask for x
 
 Living together feels like the first big step towards building our future, and I am all in. I'm so proud of us and the work we've done to grow together over the past 3 years. I know there's always more work to come, but because of what we've already built, I feel confident in our ability to figure life out together.
 
-I'm honestly still absorbing that it's actually happening, not in a bad way, but in a "it's something I know will be amazing so the fact it's actually happening is crazy" type of way. And I want you to know, there is no doubt in my mind that I want to marry you and spend forever with you. I see you as my partner in crime for life and I'm bouncing up and down with joy for what's to come.
+I'm honestly still absorbing that it's actually happening, not in a bad way, but in a "it's something I know will be amazing so the fact it's actually happening is crazy" type of way. And I want you to know, there is no doubt in my mind that I want to marry you and spend forever with you. I've seen you as my partner in crime for life for ages and I'm bouncing up and down with joy for what's to come.
 
-I promise you that we are in these things together, not in a way that takes away autonomy or independence, but as equals supporting each other through all our adventures. We'll find our balance when we start living together, and I also promise I won't overspend hehe.
+I promise you that we are in these things together, not in a way that takes away autonomy or independence, but as equals supporting each other through all our adventures. We'll find our balance when we start living together, and I also promise I won't overspend hehe. I'm so happy for you and proud of you because of your amazing achievement into Imperial and so happy to be by your side.
       <span class="sign-off">Love you loads,
 Laura &hearts;</span>
     </div>
